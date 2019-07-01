@@ -11,12 +11,24 @@
 
 @property (nonatomic, strong) NSMutableArray <DACollectionItem *> *dataArray;
 
+@property (nonatomic, copy) NSString *sectionHeaderIdent;
+
+@property (nonatomic, copy) NSString *sectionFooterIdent; //
+
 @end
 
 @implementation DACollectionSection
 
-- (instancetype)init{
+- (instancetype)initSectionWithSectionHeaderClass:(nullable Class)headerClass sectionFooterClass:(nullable Class)footerClass{
     if (self = [super init]) {
+        if (headerClass) {
+            NSString *headerIdentifier = NSStringFromClass(headerClass);
+            self.sectionHeaderIdent = headerIdentifier;
+        }
+        if (footerClass) {
+            NSString *footerIdentifier = NSStringFromClass(footerClass);
+            self.sectionFooterIdent = footerIdentifier;
+        }
         self.sectionFooterSize = CGSizeMake(CGFLOAT_MAX, 44);
         self.sectionHeaderSize = CGSizeMake(CGFLOAT_MAX, 44);
         self.sectionLayoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
@@ -25,6 +37,7 @@
     }
     return self;
 }
+
 #pragma mark 删除item
 - (void)removeAllItem{
     [self.dataArray removeAllObjects];
@@ -102,4 +115,15 @@
     }
     return _dataArray;
 }
+
+- (NSString *)getSectionHeaderIdent{
+    
+    return self.sectionHeaderIdent;
+}
+
+- (NSString *)getsectionFooterIdent{
+    
+    return self.sectionFooterIdent;
+}
+
 @end

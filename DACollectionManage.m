@@ -116,7 +116,8 @@
 {
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
     DACollectionItem *item  = fdSection.listItem[indexPath.row];
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:item.cellIdentifier forIndexPath:indexPath];
+    NSString *ident = [item getCellIdentifier];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ident forIndexPath:indexPath];
     if (item.cellConfiguration) {
         item.cellConfiguration(self, cell, item);
     }
@@ -127,30 +128,24 @@
     DACollectionSection *collectionSection = self.dataArray[indexPath.row];
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]){
-        if (collectionSection.sectionCustomHeaderView && collectionSection.sectionCustomHeaderView(indexPath.section)) {
-            NSString *identifier = NSStringFromClass(collectionSection.sectionCustomHeaderView(indexPath.section));
-            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-            if (collectionSection.sectionCustomHeaderViewBlock) {
-                collectionSection.sectionCustomHeaderViewBlock(headerView, indexPath.section);
+        NSString *headerIdent = [collectionSection getSectionHeaderIdent];
+        if (headerIdent.length != 0) {
+            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdent forIndexPath:indexPath];
+            if (collectionSection.sectionHeaderView) {
+                collectionSection.sectionHeaderView(headerView, indexPath.section);
             }
             return headerView;
-        }
-        if (collectionSection.sectionHeaderView) {
-            return collectionSection.sectionHeaderView(indexPath.section);
         }
         return nil;
     }
      if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-         if (collectionSection.sectionCustomFooterView && collectionSection.sectionCustomFooterView(indexPath.section)) {
-             NSString *identifier = NSStringFromClass(collectionSection.sectionCustomFooterView(indexPath.section));
-              UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-             if (collectionSection.sectionCustomFooterViewBlock) {
-                 collectionSection.sectionCustomFooterViewBlock(headerView, indexPath.section);
+         NSString *footerIdent = [collectionSection getSectionHeaderIdent];
+         if (footerIdent.length != 0) {
+              UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerIdent forIndexPath:indexPath];
+             if (collectionSection.sectionFooterView) {
+                 collectionSection.sectionFooterView(headerView, indexPath.section);
              }
              return headerView;
-         }
-         if (collectionSection.sectionFooterView) {
-             return collectionSection.sectionFooterView(indexPath.section);
          }
          return nil;
     }

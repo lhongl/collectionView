@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @class DACollectionManage;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DACollectionItem : NSObject
 
 @property (nonatomic, assign) CGSize cellLayoutSize; //item宽高
-
-@property (nonatomic, copy) NSString *cellIdentifier;
 
 @property (nonatomic, copy) void (^cellConfiguration)(__kindof DACollectionManage *tableVieManager,__kindof UICollectionViewCell *cell,__kindof DACollectionItem *item); //加载数据
 
@@ -30,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
  返回数据
  */
 - (id)data;
+
+/**
+ 获取cell注册id
+ */
+- (NSString *)getCellIdentifier;
 @end
 
 NS_ASSUME_NONNULL_END

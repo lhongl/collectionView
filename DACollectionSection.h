@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "DACollectionItem.h"
+#import "FDCollectionSectionHeader.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DACollectionSection : NSObject
@@ -25,23 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray <DACollectionItem *> *listItem;
 
-@property (nonatomic, copy) UICollectionReusableView * (^sectionHeaderView)(NSInteger section);//与系统注册对应headerView
+@property (nonatomic, copy) FDCollectionSectionHeaderView sectionHeaderView;//与系统注册对应headerView
 
-@property (nonatomic, copy) UICollectionReusableView * (^sectionFooterView)(NSInteger section);//与系统注册对应footerView
+@property (nonatomic, copy) FDCollectionSectionFooterView sectionFooterView;//与系统注册对应footerView
 
-@property (nonatomic, copy) NSString * (^sectionHeaderTitle)(NSInteger section); //header
+@property (nonatomic, copy) FDCollectionSectionHeaderTitle sectionHeaderTitle; //header
 
-@property (nonatomic, copy) NSString * (^sectionFooterTitle)(NSInteger section); //footer
+@property (nonatomic, copy) FDCollectionSectionFooterTitle sectionFooterTitle; //footer
 
-//****************自定义header和footer注册**************
-@property (nonatomic, copy) Class (^sectionCustomHeaderView)(NSInteger section);
-
-@property (nonatomic, copy) void (^sectionCustomHeaderViewBlock)(UICollectionReusableView *headerView ,NSInteger section);//返回，可以作为赋值使用
-
-@property (nonatomic, copy) Class (^sectionCustomFooterView)(NSInteger section);
-
-@property (nonatomic, copy) void (^sectionCustomFooterViewBlock)(UICollectionReusableView *footerView ,NSInteger section);//返回，可以作为赋值使用
-
+- (instancetype)initSectionWithSectionHeaderClass:(nullable Class)headerClass sectionFooterClass:(nullable Class)footerClass;
 /**
  删除item
  */
@@ -63,6 +56,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addItemFromArray:(NSArray <DACollectionItem *>*)array;
 
+/**
+ 获取header注册idnet
+ */
+- (NSString *)getSectionHeaderIdent;
+
+/**
+ 获取footer注册idnet
+ */
+- (NSString *)getsectionFooterIdent;
 @end
 
 NS_ASSUME_NONNULL_END

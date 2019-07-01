@@ -11,6 +11,7 @@
 {
     id _data;
 }
+@property (nonatomic, copy) NSString *cellIdentifier;
 @end
 @implementation DACollectionItem
 
@@ -27,4 +28,10 @@
 - (id)data{
     return _data;
 }
+
+- (NSString *)getCellIdentifier{
+    
+    return _cellIdentifier;
+}
+
 @end
