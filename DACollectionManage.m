@@ -116,7 +116,7 @@
 {
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
     DACollectionItem *item  = fdSection.listItem[indexPath.row];
-    NSString *ident = [item getCellIdentifier];
+    NSString *ident = [item cellIdentifier];
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ident forIndexPath:indexPath];
     if (item.cellConfiguration) {
         item.cellConfiguration(self, cell, item);
@@ -128,7 +128,7 @@
     DACollectionSection *collectionSection = self.dataArray[indexPath.row];
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]){
-        NSString *headerIdent = [collectionSection getSectionHeaderIdent];
+        NSString *headerIdent = [collectionSection sectionHeaderIdent];
         if (headerIdent.length != 0) {
             UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdent forIndexPath:indexPath];
             if (collectionSection.sectionHeaderView) {
@@ -139,7 +139,7 @@
         return nil;
     }
      if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-         NSString *footerIdent = [collectionSection getSectionHeaderIdent];
+         NSString *footerIdent = [collectionSection sectionHeaderIdent];
          if (footerIdent.length != 0) {
               UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerIdent forIndexPath:indexPath];
              if (collectionSection.sectionFooterView) {

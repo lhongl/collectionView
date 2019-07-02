@@ -59,12 +59,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  获取header注册idnet
  */
-- (NSString *)getSectionHeaderIdent;
+- (NSString *)sectionHeaderIdent;
 
 /**
  获取footer注册idnet
  */
-- (NSString *)getsectionFooterIdent;
+- (NSString *)sectionFooterIdent;
 @end
 
 NS_ASSUME_NONNULL_END

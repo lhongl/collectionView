@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  获取cell注册id
  */
-- (NSString *)getCellIdentifier;
+- (NSString *)cellIdentifier;
 @end
 
 NS_ASSUME_NONNULL_END

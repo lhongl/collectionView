@@ -29,7 +29,7 @@
     return _data;
 }
 
-- (NSString *)getCellIdentifier{
+- (NSString *)cellIdentifier{
     
     return _cellIdentifier;
 }

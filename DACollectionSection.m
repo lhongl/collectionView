@@ -116,12 +116,12 @@
     return _dataArray;
 }
 
-- (NSString *)getSectionHeaderIdent{
+- (NSString *)sectionHeaderIdent{
     
     return self.sectionHeaderIdent;
 }
 
-- (NSString *)getsectionFooterIdent{
+- (NSString *)sectionFooterIdent{
     
     return self.sectionFooterIdent;
 }
