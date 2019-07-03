@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param collectionView collectionView
  */
-- (instancetype)initTableViewManage:(UICollectionView *)collectionView;
+- (instancetype)initCollectionViewManage:(nullable UICollectionView *)collectionView;
 
 /**
  cell注册
@@ -53,14 +53,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param section 添加section
  */
-- (void)addSection:(DACollectionSection *)section;
+- (void)addSection:(nullable DACollectionSection *)section;
 
-- (void)addSection:(DACollectionSection *)section atIndex:(NSUInteger)idx;
+- (void)addSection:(nullable DACollectionSection *)section atIndex:(NSUInteger)idx;
 
 /**
  删除
  */
-- (void)remoVeSection:(DACollectionSection *)section;
+- (void)remoVeSection:(nullable DACollectionSection *)section;
 
 - (void)removeAllSection;
 

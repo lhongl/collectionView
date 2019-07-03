@@ -19,8 +19,23 @@
 
 @implementation DACollectionSection
 
-- (instancetype)initSectionWithSectionHeaderClass:(nullable Class)headerClass sectionFooterClass:(nullable Class)footerClass{
++ (instancetype)section{
+    
+    return [[self alloc] init];
+}
+
+- (instancetype)init{
     if (self = [super init]) {
+        self.sectionFooterSize = CGSizeMake(0, 0);
+        self.sectionHeaderSize = CGSizeMake(0, 0);
+        self.sectionLayoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
+        self.sectionMinimumLineSpacingForSection = 0;
+        self.sectionMinimumInteritemSpacingForSection = 0;
+    }
+    return self;
+}
+
+- (void)dequeueReusableHeaderClass:(nullable Class)headerClass footerClass:(nullable Class)footerClass{
         if (headerClass) {
             NSString *headerIdentifier = NSStringFromClass(headerClass);
             self.sectionHeaderIdent = headerIdentifier;
@@ -29,13 +44,6 @@
             NSString *footerIdentifier = NSStringFromClass(footerClass);
             self.sectionFooterIdent = footerIdentifier;
         }
-        self.sectionFooterSize = CGSizeMake(CGFLOAT_MAX, 44);
-        self.sectionHeaderSize = CGSizeMake(CGFLOAT_MAX, 44);
-        self.sectionLayoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
-        self.sectionMinimumLineSpacingForSection = 0;
-        self.sectionMinimumInteritemSpacingForSection = 0;
-    }
-    return self;
 }
 
 #pragma mark 删除item
@@ -56,7 +64,7 @@
     [self.dataArray removeObjectsInArray:array];
 }
 
-- (void)removeItem:(DACollectionItem *)item{
+- (void)removeItem:(nullable DACollectionItem *)item{
     
     if (!item) {
 #ifdef DEBUG
@@ -70,11 +78,11 @@
 #pragma mark itemList
 - (NSArray <DACollectionItem *> *)itemList{
     
-    return _dataArray;
+    return self.dataArray;
 }
 
 #pragma mark 添加item
-- (void)addItem:(DACollectionItem *)item{
+- (void)addItem:(nullable DACollectionItem *)item{
 #ifdef DEBUG
     NSAssert(item, @"item not Null");
 #endif
@@ -84,7 +92,7 @@
     [self.dataArray addObject:item];
 }
 
-- (void)insertItem:(DACollectionItem *)item atIndex:(NSUInteger)idx{
+- (void)insertItem:(nullable DACollectionItem *)item atIndex:(NSUInteger)idx{
     if (!item) {
 #ifdef DEBUG
         NSAssert(item, @"item Not Null");

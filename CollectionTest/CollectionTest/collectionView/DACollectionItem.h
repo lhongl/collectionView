@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
-- (instancetype)initWithData:(id)data cellClass:(nullable Class)cellClass;
+- (instancetype)initWithData:(nullable id)data cellClass:(nullable Class)cellClass;
 
 /**
  返回数据

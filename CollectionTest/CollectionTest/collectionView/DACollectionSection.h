@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGSize sectionFooterSize;
 
-@property (nonatomic, strong) NSArray <DACollectionItem *> *listItem;
+@property (nonatomic, strong) NSArray <DACollectionItem *> *itemList;
 
 @property (nonatomic, copy) FDCollectionSectionHeaderView sectionHeaderView;//与系统注册对应headerView
 
@@ -34,7 +34,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) FDCollectionSectionFooterTitle sectionFooterTitle; //footer
 
-- (instancetype)initSectionWithSectionHeaderClass:(nullable Class)headerClass sectionFooterClass:(nullable Class)footerClass;
+/**
+ 初始化
+ */
++ (instancetype)section;
+
+/**
+ @param headerClass header类
+ @param footerClass footer类
+ */
+- (void)dequeueReusableHeaderClass:(nullable Class)headerClass footerClass:(nullable Class)footerClass;
+
 /**
  删除item
  */
@@ -44,15 +54,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)remoVeItemWithArray:(NSArray <DACollectionItem *>*)array;
 
-- (void)removeItem:(DACollectionItem *)item;
+- (void)removeItem:(nullable DACollectionItem *)item;
 
 
 /**
  添加item
  */
-- (void)addItem:(DACollectionItem *)item;
+- (void)addItem:(nullable DACollectionItem *)item;
 
-- (void)insertItem:(DACollectionItem *)item atIndex:(NSUInteger)idx;
+- (void)insertItem:(nullable DACollectionItem *)item atIndex:(NSUInteger)idx;
 
 - (void)addItemFromArray:(NSArray <DACollectionItem *>*)array;
 

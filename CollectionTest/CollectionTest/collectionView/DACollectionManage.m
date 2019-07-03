@@ -15,7 +15,7 @@
 
 @implementation DACollectionManage
 #pragma  mark 初始化
-- (instancetype)initTableViewManage:(UICollectionView *)collectionView {
+- (instancetype)initCollectionViewManage:(nullable UICollectionView *)collectionView {
     if (self = [super init]) {
         self.collectionView = collectionView;
         self.collectionView.delegate = self;
@@ -55,7 +55,7 @@
 }
 
 #pragma mark 添加section
-- (void)addSection:(DACollectionSection *)section{
+- (void)addSection:(nullable DACollectionSection *)section{
     if (!section) {
 #ifdef DEBUG
         NSAssert(section, @"section Not Null");
@@ -65,7 +65,7 @@
     [self.dataArray addObject:section];
 }
 
-- (void)addSection:(DACollectionSection *)section atIndex:(NSUInteger)idx{
+- (void)addSection:(nullable DACollectionSection *)section atIndex:(NSUInteger)idx{
     if (!section) {
 #ifdef DEBUG
         NSAssert(section, @"section Not Null");
@@ -87,7 +87,7 @@
     [self.dataArray removeAllObjects];
 }
 
-- (void)remoVeSection:(DACollectionSection *)section{
+- (void)remoVeSection:(nullable DACollectionSection *)section{
     if (!section) {
         return;
     }
@@ -104,7 +104,7 @@
 #pragma mark collection代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     DACollectionSection *sectionItem = self.dataArray[section];
-    return sectionItem.listItem.count;
+    return sectionItem.itemList.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -115,7 +115,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.listItem[indexPath.row];
+    DACollectionItem *item  = fdSection.itemList[indexPath.row];
     NSString *ident = [item cellIdentifier];
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ident forIndexPath:indexPath];
     if (item.cellConfiguration) {
@@ -154,7 +154,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.listItem[indexPath.row];
+    DACollectionItem *item  = fdSection.itemList[indexPath.row];
     return item.cellLayoutSize;
 }
 
@@ -192,7 +192,7 @@
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.listItem[indexPath.row];
+    DACollectionItem *item  = fdSection.itemList[indexPath.row];
     if (item.didSelectRow) {
         item.didSelectRow(self, indexPath, item);
     }
@@ -200,11 +200,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.listItem[indexPath.row];
+    DACollectionItem *item  = fdSection.itemList[indexPath.row];
     if (item.didDeselectRow) {
         item.didDeselectRow(self, indexPath, item);
     }
 }
 
+#pragma mark 懒加载
+- (NSMutableArray <DACollectionSection *>*)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
 
 @end
