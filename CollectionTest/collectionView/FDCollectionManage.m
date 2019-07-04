@@ -1,25 +1,27 @@
 //
-//  DACollectionManage.m
+//  FDCollectionManage.m
 //  ProjectTemplate
 //
 //  Created by lihongliang on 2019/6/29.
 //  Copyright © 2019年 李宏亮. All rights reserved.
 //
 
-#import "DACollectionManage.h"
-@interface DACollectionManage ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+#import "FDCollectionManage.h"
+@interface FDCollectionManage ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) NSMutableArray <DACollectionSection *>*dataArray;
+@property (nonatomic, strong) NSMutableArray <FDCollectionSection *>*dataArray;
 
 @end
 
-@implementation DACollectionManage
+@implementation FDCollectionManage
 #pragma  mark 初始化
 - (instancetype)initCollectionViewManage:(nullable UICollectionView *)collectionView {
     if (self = [super init]) {
-        self.collectionView = collectionView;
-        self.collectionView.delegate = self;
-        self.collectionView.dataSource = self;
+        if (collectionView) {
+            self.collectionView = collectionView;
+            self.collectionView.delegate = self;
+            self.collectionView.dataSource = self;
+        }
     }
     return self;
 }
@@ -55,7 +57,7 @@
 }
 
 #pragma mark 添加section
-- (void)addSection:(nullable DACollectionSection *)section{
+- (void)addSection:(nullable FDCollectionSection *)section{
     if (!section) {
 #ifdef DEBUG
         NSAssert(section, @"section Not Null");
@@ -65,7 +67,7 @@
     [self.dataArray addObject:section];
 }
 
-- (void)addSection:(nullable DACollectionSection *)section atIndex:(NSUInteger)idx{
+- (void)addSection:(nullable FDCollectionSection *)section atIndex:(NSUInteger)idx{
     if (!section) {
 #ifdef DEBUG
         NSAssert(section, @"section Not Null");
@@ -87,7 +89,7 @@
     [self.dataArray removeAllObjects];
 }
 
-- (void)remoVeSection:(nullable DACollectionSection *)section{
+- (void)remoVeSection:(nullable FDCollectionSection *)section{
     if (!section) {
         return;
     }
@@ -103,7 +105,7 @@
 
 #pragma mark collection代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    DACollectionSection *sectionItem = self.dataArray[section];
+    FDCollectionSection *sectionItem = self.dataArray[section];
     return sectionItem.itemList.count;
 }
 
@@ -114,10 +116,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.itemList[indexPath.row];
-    NSString *ident = [item cellIdentifier];
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ident forIndexPath:indexPath];
+    FDCollectionSection *fdSection = self.dataArray[indexPath.section];
+    FDCollectionItem *item  = fdSection.itemList[indexPath.row];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:item.cellIdentifier forIndexPath:indexPath];
     if (item.cellConfiguration) {
         item.cellConfiguration(self, cell, item);
     }
@@ -125,89 +126,95 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    DACollectionSection *collectionSection = self.dataArray[indexPath.row];
+    FDCollectionSection *collectionSection = self.dataArray[indexPath.row];
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]){
-        NSString *headerIdent = [collectionSection sectionHeaderIdent];
-        if (headerIdent.length != 0) {
-            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerIdent forIndexPath:indexPath];
-            if (collectionSection.sectionHeaderView) {
-                collectionSection.sectionHeaderView(headerView, indexPath.section);
-            }
-            return headerView;
+        if (collectionSection.customViewForHeader) {
+            return collectionSection.customViewForHeader(indexPath.section);
         }
-        return nil;
+
+        if (collectionSection.sectionHeaderIdent.length == 0) {
+            return nil;
+        }
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:collectionSection.sectionHeaderIdent forIndexPath:indexPath];
+        if (collectionSection.viewForHeader) {
+            collectionSection.viewForHeader(headerView, indexPath.section);
+        }
+        return headerView;
     }
      if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-         NSString *footerIdent = [collectionSection sectionHeaderIdent];
-         if (footerIdent.length != 0) {
-              UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:footerIdent forIndexPath:indexPath];
-             if (collectionSection.sectionFooterView) {
-                 collectionSection.sectionFooterView(headerView, indexPath.section);
-             }
-             return headerView;
+         if (collectionSection.customViewForFooter) {
+             return collectionSection.customViewForFooter(indexPath.section);
          }
-         return nil;
+         if (collectionSection.sectionHeaderIdent.length == 0) {
+             return nil;
+         }
+         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:collectionSection.sectionHeaderIdent forIndexPath:indexPath];
+         if (collectionSection.viewForFooter) {
+             collectionSection.viewForFooter(headerView, indexPath.section);
+         }
+         return headerView;
     }
     return nil;
 }
 
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.itemList[indexPath.row];
+    FDCollectionSection *fdSection = self.dataArray[indexPath.section];
+    FDCollectionItem *item  = fdSection.itemList[indexPath.row];
     return item.cellLayoutSize;
 }
 
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-     DACollectionSection *daSection = self.dataArray[section];
-    return daSection.sectionLayoutEdgeInsets;
+     FDCollectionSection *daSection = self.dataArray[section];
+    return daSection.layoutEdgeInsets;
 }
 
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    DACollectionSection *daSection = self.dataArray[section];
-    return daSection.sectionMinimumLineSpacingForSection;
+    FDCollectionSection *daSection = self.dataArray[section];
+    return daSection.minimumLineSpacingForSection;
 }
 
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    DACollectionSection *daSection = self.dataArray[section];
-    return daSection.sectionMinimumInteritemSpacingForSection;
+    FDCollectionSection *daSection = self.dataArray[section];
+    return daSection.minimumInteritemSpacingForSection;
 }
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    DACollectionSection *daSection = self.dataArray[section];
-    return daSection.sectionHeaderSize;
+    FDCollectionSection *daSection = self.dataArray[section];
+    return daSection.sizeForHeader;
 }
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    DACollectionSection *daSection = self.dataArray[section];
-    return daSection.sectionFooterSize;
+    FDCollectionSection *daSection = self.dataArray[section];
+    return daSection.sizeForFooter;
 }
 
 // 选中某item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.itemList[indexPath.row];
+    FDCollectionSection *fdSection = self.dataArray[indexPath.section];
+    FDCollectionItem *item  = fdSection.itemList[indexPath.row];
     if (item.didSelectRow) {
         item.didSelectRow(self, indexPath, item);
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    DACollectionSection *fdSection = self.dataArray[indexPath.section];
-    DACollectionItem *item  = fdSection.itemList[indexPath.row];
+    FDCollectionSection *fdSection = self.dataArray[indexPath.section];
+    FDCollectionItem *item  = fdSection.itemList[indexPath.row];
     if (item.didDeselectRow) {
         item.didDeselectRow(self, indexPath, item);
     }
 }
 
 #pragma mark 懒加载
-- (NSMutableArray <DACollectionSection *>*)dataArray{
+- (NSMutableArray <FDCollectionSection *>*)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
     }

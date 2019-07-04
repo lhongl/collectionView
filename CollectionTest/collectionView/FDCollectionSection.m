@@ -1,23 +1,23 @@
 //
-//  DACollectionSection.m
+//  FDCollectionSection.m
 //  ProjectTemplate
 //
 //  Created by lihongliang on 2019/6/29.
 //  Copyright © 2019年 李宏亮. All rights reserved.
 //
 
-#import "DACollectionSection.h"
-@interface DACollectionSection ()
+#import "FDCollectionSection.h"
+@interface FDCollectionSection ()
 
-@property (nonatomic, strong) NSMutableArray <DACollectionItem *> *dataArray;
+@property (nonatomic, strong) NSMutableArray <FDCollectionItem *> *dataArray;
 
-@property (nonatomic, copy) NSString *sectionHeaderIdent;
+@property (nonatomic, copy) NSString *headerIdent;
 
-@property (nonatomic, copy) NSString *sectionFooterIdent; //
+@property (nonatomic, copy) NSString *footerIdent; //
 
 @end
 
-@implementation DACollectionSection
+@implementation FDCollectionSection
 
 + (instancetype)section{
     
@@ -26,11 +26,11 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        self.sectionFooterSize = CGSizeMake(0, 0);
-        self.sectionHeaderSize = CGSizeMake(0, 0);
-        self.sectionLayoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
-        self.sectionMinimumLineSpacingForSection = 0;
-        self.sectionMinimumInteritemSpacingForSection = 0;
+        self.sizeForFooter = CGSizeMake(0, 0);
+        self.sizeForHeader = CGSizeMake(0, 0);
+        self.layoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
+        self.minimumLineSpacingForSection = 0;
+        self.minimumInteritemSpacingForSection = 0;
     }
     return self;
 }
@@ -38,11 +38,11 @@
 - (void)dequeueReusableHeaderClass:(nullable Class)headerClass footerClass:(nullable Class)footerClass{
         if (headerClass) {
             NSString *headerIdentifier = NSStringFromClass(headerClass);
-            self.sectionHeaderIdent = headerIdentifier;
+            self.headerIdent = headerIdentifier;
         }
         if (footerClass) {
             NSString *footerIdentifier = NSStringFromClass(footerClass);
-            self.sectionFooterIdent = footerIdentifier;
+            self.footerIdent = footerIdentifier;
         }
 }
 
@@ -57,14 +57,14 @@
     }
 }
 
-- (void)remoVeItemWithArray:(NSArray <DACollectionItem *>*)array{
+- (void)remoVeItemWithArray:(NSArray <FDCollectionItem *>*)array{
     if (array.count == 0) {
         return;
     }
     [self.dataArray removeObjectsInArray:array];
 }
 
-- (void)removeItem:(nullable DACollectionItem *)item{
+- (void)removeItem:(nullable FDCollectionItem *)item{
     
     if (!item) {
 #ifdef DEBUG
@@ -76,13 +76,13 @@
 }
 
 #pragma mark itemList
-- (NSArray <DACollectionItem *> *)itemList{
+- (NSArray <FDCollectionItem *> *)itemList{
     
     return self.dataArray;
 }
 
 #pragma mark 添加item
-- (void)addItem:(nullable DACollectionItem *)item{
+- (void)addItem:(nullable FDCollectionItem *)item{
 #ifdef DEBUG
     NSAssert(item, @"item not Null");
 #endif
@@ -92,7 +92,7 @@
     [self.dataArray addObject:item];
 }
 
-- (void)insertItem:(nullable DACollectionItem *)item atIndex:(NSUInteger)idx{
+- (void)insertItem:(nullable FDCollectionItem *)item atIndex:(NSUInteger)idx{
     if (!item) {
 #ifdef DEBUG
         NSAssert(item, @"item Not Null");
@@ -109,7 +109,7 @@
     [self.dataArray insertObject:item atIndex:idx];
 }
 
-- (void)addItemFromArray:(NSArray <DACollectionItem *>*)array{
+- (void)addItemFromArray:(NSArray <FDCollectionItem *>*)array{
     if (array.count == 0) {
         return;
     }
@@ -117,21 +117,22 @@
 }
 
 #pragma mark 懒加载
-- (NSMutableArray <DACollectionItem *>*)dataArray{
+- (NSMutableArray <FDCollectionItem *>*)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
     }
     return _dataArray;
 }
 
+
 - (NSString *)sectionHeaderIdent{
     
-    return self.sectionHeaderIdent;
+    return self.headerIdent;
 }
 
 - (NSString *)sectionFooterIdent{
     
-    return self.sectionFooterIdent;
+    return self.footerIdent;
 }
 
 @end

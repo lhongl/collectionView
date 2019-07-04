@@ -1,5 +1,5 @@
 //
-//  DACollectionManage.h
+//  FDCollectionManage.h
 //  ProjectTemplate
 //
 //  Created by lihongliang on 2019/6/29.
@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DACollectionItem.h"
-#import "DACollectionSection.h"
+#import "FDCollectionItem.h"
+#import "FDCollectionSection.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DACollectionManage : NSObject
+@interface FDCollectionManage : NSObject
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 
@@ -53,14 +53,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param section 添加section
  */
-- (void)addSection:(nullable DACollectionSection *)section;
+- (void)addSection:(nullable FDCollectionSection *)section;
 
-- (void)addSection:(nullable DACollectionSection *)section atIndex:(NSUInteger)idx;
+- (void)addSection:(nullable FDCollectionSection *)section atIndex:(NSUInteger)idx;
 
 /**
  删除
  */
-- (void)remoVeSection:(nullable DACollectionSection *)section;
+- (void)remoVeSection:(nullable FDCollectionSection *)section;
 
 - (void)removeAllSection;
 

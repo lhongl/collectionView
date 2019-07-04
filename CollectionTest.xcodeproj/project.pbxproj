@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6503AA7A22CDAE7A00E0B1BA /* FDCollectionManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6503AA7422CDAE7A00E0B1BA /* FDCollectionManage.m */; };
+		6503AA7B22CDAE7A00E0B1BA /* FDCollectionSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6503AA7622CDAE7A00E0B1BA /* FDCollectionSection.m */; };
+		6503AA7C22CDAE7A00E0B1BA /* FDCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6503AA7922CDAE7A00E0B1BA /* FDCollectionItem.m */; };
 		65CF075322CCA8B5007B4F5E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF075222CCA8B5007B4F5E /* AppDelegate.m */; };
 		65CF075622CCA8B5007B4F5E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF075522CCA8B5007B4F5E /* ViewController.m */; };
 		65CF075922CCA8B5007B4F5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CF075722CCA8B5007B4F5E /* Main.storyboard */; };
@@ -15,9 +18,6 @@
 		65CF076122CCA8B7007B4F5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF076022CCA8B7007B4F5E /* main.m */; };
 		65CF076B22CCA8B7007B4F5E /* CollectionTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF076A22CCA8B7007B4F5E /* CollectionTestTests.m */; };
 		65CF077622CCA8B7007B4F5E /* CollectionTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF077522CCA8B7007B4F5E /* CollectionTestUITests.m */; };
-		65CF078B22CCA8E1007B4F5E /* DACollectionManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF078522CCA8E1007B4F5E /* DACollectionManage.m */; };
-		65CF078C22CCA8E1007B4F5E /* DACollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF078722CCA8E1007B4F5E /* DACollectionItem.m */; };
-		65CF078D22CCA8E1007B4F5E /* DACollectionSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF078822CCA8E1007B4F5E /* DACollectionSection.m */; };
 		65CF079122CCAB6F007B4F5E /* DATestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF078F22CCAB6F007B4F5E /* DATestCollectionViewCell.m */; };
 		65CF079222CCAB6F007B4F5E /* DATestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65CF079022CCAB6F007B4F5E /* DATestCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -40,6 +40,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6503AA7222CDAE7A00E0B1BA /* FDCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionItem.h; sourceTree = "<group>"; };
+		6503AA7322CDAE7A00E0B1BA /* FDCollectionSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionSectionHeader.h; sourceTree = "<group>"; };
+		6503AA7422CDAE7A00E0B1BA /* FDCollectionManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDCollectionManage.m; sourceTree = "<group>"; };
+		6503AA7522CDAE7A00E0B1BA /* FDCollectionSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionSection.h; sourceTree = "<group>"; };
+		6503AA7622CDAE7A00E0B1BA /* FDCollectionSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDCollectionSection.m; sourceTree = "<group>"; };
+		6503AA7722CDAE7A00E0B1BA /* FDCollectionManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionManage.h; sourceTree = "<group>"; };
+		6503AA7822CDAE7A00E0B1BA /* FDCollectionObjctHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionObjctHeader.h; sourceTree = "<group>"; };
+		6503AA7922CDAE7A00E0B1BA /* FDCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDCollectionItem.m; sourceTree = "<group>"; };
 		65CF074E22CCA8B5007B4F5E /* CollectionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF075122CCA8B5007B4F5E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		65CF075222CCA8B5007B4F5E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -56,13 +64,6 @@
 		65CF077122CCA8B7007B4F5E /* CollectionTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollectionTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF077522CCA8B7007B4F5E /* CollectionTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionTestUITests.m; sourceTree = "<group>"; };
 		65CF077722CCA8B7007B4F5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65CF078422CCA8E1007B4F5E /* DACollectionSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACollectionSection.h; sourceTree = "<group>"; };
-		65CF078522CCA8E1007B4F5E /* DACollectionManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACollectionManage.m; sourceTree = "<group>"; };
-		65CF078622CCA8E1007B4F5E /* FDCollectionSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDCollectionSectionHeader.h; sourceTree = "<group>"; };
-		65CF078722CCA8E1007B4F5E /* DACollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACollectionItem.m; sourceTree = "<group>"; };
-		65CF078822CCA8E1007B4F5E /* DACollectionSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACollectionSection.m; sourceTree = "<group>"; };
-		65CF078922CCA8E1007B4F5E /* DACollectionManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACollectionManage.h; sourceTree = "<group>"; };
-		65CF078A22CCA8E1007B4F5E /* DACollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACollectionItem.h; sourceTree = "<group>"; };
 		65CF078E22CCAB6F007B4F5E /* DATestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DATestCollectionViewCell.h; sourceTree = "<group>"; };
 		65CF078F22CCAB6F007B4F5E /* DATestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DATestCollectionViewCell.m; sourceTree = "<group>"; };
 		65CF079022CCAB6F007B4F5E /* DATestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DATestCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -154,13 +155,14 @@
 		65CF078322CCA8E1007B4F5E /* collectionView */ = {
 			isa = PBXGroup;
 			children = (
-				65CF078A22CCA8E1007B4F5E /* DACollectionItem.h */,
-				65CF078722CCA8E1007B4F5E /* DACollectionItem.m */,
-				65CF078922CCA8E1007B4F5E /* DACollectionManage.h */,
-				65CF078522CCA8E1007B4F5E /* DACollectionManage.m */,
-				65CF078422CCA8E1007B4F5E /* DACollectionSection.h */,
-				65CF078822CCA8E1007B4F5E /* DACollectionSection.m */,
-				65CF078622CCA8E1007B4F5E /* FDCollectionSectionHeader.h */,
+				6503AA7222CDAE7A00E0B1BA /* FDCollectionItem.h */,
+				6503AA7922CDAE7A00E0B1BA /* FDCollectionItem.m */,
+				6503AA7722CDAE7A00E0B1BA /* FDCollectionManage.h */,
+				6503AA7422CDAE7A00E0B1BA /* FDCollectionManage.m */,
+				6503AA7822CDAE7A00E0B1BA /* FDCollectionObjctHeader.h */,
+				6503AA7522CDAE7A00E0B1BA /* FDCollectionSection.h */,
+				6503AA7622CDAE7A00E0B1BA /* FDCollectionSection.m */,
+				6503AA7322CDAE7A00E0B1BA /* FDCollectionSectionHeader.h */,
 			);
 			path = collectionView;
 			sourceTree = "<group>";
@@ -296,12 +298,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CF078D22CCA8E1007B4F5E /* DACollectionSection.m in Sources */,
-				65CF078C22CCA8E1007B4F5E /* DACollectionItem.m in Sources */,
+				6503AA7A22CDAE7A00E0B1BA /* FDCollectionManage.m in Sources */,
 				65CF075622CCA8B5007B4F5E /* ViewController.m in Sources */,
-				65CF078B22CCA8E1007B4F5E /* DACollectionManage.m in Sources */,
 				65CF076122CCA8B7007B4F5E /* main.m in Sources */,
+				6503AA7B22CDAE7A00E0B1BA /* FDCollectionSection.m in Sources */,
 				65CF075322CCA8B5007B4F5E /* AppDelegate.m in Sources */,
+				6503AA7C22CDAE7A00E0B1BA /* FDCollectionItem.m in Sources */,
 				65CF079122CCAB6F007B4F5E /* DATestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
