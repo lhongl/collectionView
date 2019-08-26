@@ -14,8 +14,8 @@ typedef void (^FDCollectionSectionViewForHeader)(UIView *headerView ,NSInteger s
 
 typedef void (^FDCollectionSectionviewForFooter)(UIView *footerView ,NSInteger section);
 
-typedef UICollectionReusableView * (^FDCollectionSectionCustomViewForHeader)(NSInteger section); //headerView
+typedef CGSize (^FDCollectionSectionSizeForFooter)(NSInteger section);//footer高
 
-typedef UICollectionReusableView * (^FDCollectionSectionCustomViewForFooter)(NSInteger section); //footerView
+typedef CGSize (^FDCollectionSectionSizeForHeader)(NSInteger section);//header高
 
 #endif /* FDCollectionSectionHeader_h */

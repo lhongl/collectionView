@@ -22,49 +22,54 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param collectionView collectionView
  */
-- (instancetype)initCollectionViewManage:(nullable UICollectionView *)collectionView;
+- (instancetype)initCollectionViewManage:(UICollectionView *)collectionView;
 
 /**
  cell注册
  
  */
-- (void)registerCellWithNibName:(nonnull NSString *)nibName;
+- (void)registerCellWithNibName:(NSString *)nibName;
 
-- (void)registerCellWithClass:(nullable Class)cellClass;
+- (void)registerCellWithClass:(Class)cellClass;
 
 /**
  footer注册
  
  */
-- (void)registerFooterViewWithNibName:(nonnull NSString *)nibName;
+- (void)registerFooterViewWithNibName:(NSString *)nibName;
 
-- (void)registerFooterViewWithClass:(nullable Class)aClass;
+- (void)registerFooterViewWithClass:(Class)aClass;
 
 /**
  header注册
  
  */
-- (void)registerHeaderViewWithNibName:(nonnull NSString *)nibName;
+- (void)registerHeaderViewWithNibName:(NSString *)nibName;
 
-- (void)registerHeaderViewWithClass:(nullable Class)aClass;
+- (void)registerHeaderViewWithClass:(Class)aClass;
 
 /**
  添加section
  
  @param section 添加section
  */
-- (void)addSection:(nullable FDCollectionSection *)section;
+- (void)addSection:(FDCollectionSection *)section;
 
-- (void)addSection:(nullable FDCollectionSection *)section atIndex:(NSUInteger)idx;
+- (void)addSection:(FDCollectionSection *)section atIndex:(NSUInteger)idx;
 
 /**
  删除
  */
-- (void)remoVeSection:(nullable FDCollectionSection *)section;
+- (void)remoVeSection:(FDCollectionSection *)section;
 
 - (void)removeAllSection;
 
 - (void)remoVeSectionatIndex:(NSUInteger)idx;
+
+/**
+ 获取sections
+ */
+- (NSArray <FDCollectionSection *>*)sections;
 
 @end
 

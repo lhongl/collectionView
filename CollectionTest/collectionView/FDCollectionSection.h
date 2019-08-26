@@ -14,25 +14,52 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FDCollectionSection : NSObject
 
+@property (nonatomic, weak) FDCollectionManage *collectionManage;
+
+/**
+ 下标
+ */
+@property (nonatomic, assign, readonly) NSInteger section;
+
+/**
+ headerIdent
+ */
 @property (nonatomic, copy, readonly) NSString *sectionHeaderIdent;
 
+/**
+ footerIdent
+ */
 @property (nonatomic, copy, readonly) NSString *sectionFooterIdent;
 
+/**
+ item数据
+ */
 @property (nonatomic, strong, readonly) NSArray <FDCollectionItem *> *itemList;
 
-@property (nonatomic, assign) UIEdgeInsets layoutEdgeInsets; //上下左右边距
+/**
+  上下左右边距
+ */
+@property (nonatomic, assign) UIEdgeInsets layoutEdgeInsets;
 
-@property (nonatomic, assign) CGFloat minimumLineSpacingForSection; //可以根据section 设置不同section item的行间距
+/**
+ 可以根据section 设置不同section item的行间距
+ */
+@property (nonatomic, assign) CGFloat minimumLineSpacingForSection;
 
-@property (nonatomic, assign) CGFloat minimumInteritemSpacingForSection; // 可以根据section 设置不同section item的列间距
+/**
+ 可以根据section 设置不同section item的列间距
+ */
+@property (nonatomic, assign) CGFloat minimumInteritemSpacingForSection;
 
-@property (nonatomic, assign) CGSize sizeForHeader;
+/**
+ header宽高
+ */
+@property (nonatomic, copy) FDCollectionSectionSizeForHeader sizeForHeader;
 
-@property (nonatomic, assign) CGSize sizeForFooter;
-
-@property (nonatomic, copy) FDCollectionSectionCustomViewForHeader customViewForHeader;
-
-@property (nonatomic, copy) FDCollectionSectionCustomViewForFooter customViewForFooter;
+/**
+ footer宽高
+ */
+@property (nonatomic, copy) FDCollectionSectionSizeForFooter sizeForFooter;
 
 /**
  初始化
@@ -48,30 +75,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)remoVeItemWithArray:(NSArray <FDCollectionItem *>*)array;
 
-- (void)removeItem:(nullable FDCollectionItem *)item;
+- (void)removeItem:(FDCollectionItem *)item;
 
 
 /**
  添加item
  */
-- (void)addItem:(nullable FDCollectionItem *)item;
+- (void)addItem:(FDCollectionItem *)item;
 
-- (void)insertItem:(nullable FDCollectionItem *)item atIndex:(NSUInteger)idx;
+- (void)insertItem:(FDCollectionItem *)item atIndex:(NSUInteger)idx;
 
 - (void)addItemFromArray:(NSArray <FDCollectionItem *>*)array;
 
 
-// ***************************复用 返回headerView和footerView【下方法和属性配合使用】********************
+// ***************************列出。返回headerView和footerView【下方法和属性配合使用】********************
 /**
  FDSectionHeaderView和FDSectionFooterView
-【说明】- (void)dequeueReusableHeaderClass:(nullable Class)headerClass footerClass:(nullable Class)footerClass; 该属性无效
+【说明】- (void)dequeueReusableHeaderClass:(nullable Class)headerClass footerClass:(nullable Class)footerClass; 不使用则属性无效
  */
-@property (nonatomic, copy) FDCollectionSectionViewForHeader viewForHeader;//返回对应headerView
-
-@property (nonatomic, copy) FDCollectionSectionviewForFooter viewForFooter;//返回对应footerView
 
 /**
- 复用header和footer
+ 返回对应headerView 【返回可以赋值】
+ */
+@property (nonatomic, copy) FDCollectionSectionViewForHeader viewForHeader;
+/**
+ 返回对应footerView 【返回可以赋值】
+ */
+@property (nonatomic, copy) FDCollectionSectionviewForFooter viewForFooter;
+
+/**
+ 列出header和footer
  @param headerClass header类
  @param footerClass footer类
  */

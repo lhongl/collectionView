@@ -7,6 +7,7 @@
 //
 
 #import "FDCollectionSection.h"
+#import "FDCollectionManage.h"
 @interface FDCollectionSection ()
 
 @property (nonatomic, strong) NSMutableArray <FDCollectionItem *> *dataArray;
@@ -26,8 +27,6 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        self.sizeForFooter = CGSizeMake(0, 0);
-        self.sizeForHeader = CGSizeMake(0, 0);
         self.layoutEdgeInsets = UIEdgeInsetsMake(0,0,0,0);
         self.minimumLineSpacingForSection = 0;
         self.minimumInteritemSpacingForSection = 0;
@@ -46,15 +45,24 @@
         }
 }
 
+- (NSInteger)section{
+    return [self.collectionManage.sections indexOfObject:self];
+}
+
 #pragma mark 删除item
 - (void)removeAllItem{
     [self.dataArray removeAllObjects];
 }
 
 - (void)removeItemWithIndex:(NSInteger)index{
-    if (self.dataArray.count < index) {
-        [self.dataArray removeObjectAtIndex:index];
+    if (self.dataArray.count <= index) {
+#ifdef DEBUG
+        NSString *des = [NSString stringWithFormat:@"[__NSArrayI objectAtIndex:]: index %ld beyond bounds [0 .. %ld]",index,self.itemList.count - 1];
+        NSAssert(NO, des);
+#endif
+        return;
     }
+    [self.dataArray removeObjectAtIndex:index];
 }
 
 - (void)remoVeItemWithArray:(NSArray <FDCollectionItem *>*)array{
@@ -64,7 +72,7 @@
     [self.dataArray removeObjectsInArray:array];
 }
 
-- (void)removeItem:(nullable FDCollectionItem *)item{
+- (void)removeItem:(FDCollectionItem *)item{
     
     if (!item) {
 #ifdef DEBUG
@@ -82,17 +90,18 @@
 }
 
 #pragma mark 添加item
-- (void)addItem:(nullable FDCollectionItem *)item{
-#ifdef DEBUG
-    NSAssert(item, @"item not Null");
-#endif
+- (void)addItem:(FDCollectionItem *)item{
     if (!item) {
+#ifdef DEBUG
+        NSAssert(item, @"item not Null");
+#endif
         return;
     }
+    item.section = self;
     [self.dataArray addObject:item];
 }
 
-- (void)insertItem:(nullable FDCollectionItem *)item atIndex:(NSUInteger)idx{
+- (void)insertItem:(FDCollectionItem *)item atIndex:(NSUInteger)idx{
     if (!item) {
 #ifdef DEBUG
         NSAssert(item, @"item Not Null");
@@ -102,10 +111,12 @@
     
     if (self.dataArray.count < idx) {
 #ifdef DEBUG
-        NSAssert(NO, @"idx Not problem");
+        NSString *des = [NSString stringWithFormat:@"[__NSArrayI objectAtIndex:]: index %ld beyond bounds [0 .. %ld]",idx,self.itemList.count];
+        NSAssert(NO, des);
 #endif
         return;
     }
+    item.section = self;
     [self.dataArray insertObject:item atIndex:idx];
 }
 
@@ -113,7 +124,10 @@
     if (array.count == 0) {
         return;
     }
-    [self.dataArray addObjectsFromArray:array];
+    [array enumerateObjectsUsingBlock:^(FDCollectionItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.section = self;
+        [self.dataArray addObject:obj];
+    }];
 }
 
 #pragma mark 懒加载
